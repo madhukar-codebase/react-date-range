@@ -99,9 +99,9 @@ class Calendar extends PureComponent {
   updateShownDate = (props = this.props) => {
     const newProps = props.scroll.enabled
       ? {
-        ...props,
-        months: this.list.getVisibleRange().length,
-      }
+          ...props,
+          months: this.list.getVisibleRange().length,
+        }
       : props;
     const newFocus = calcFocusDate(this.state.focusedDate, newProps);
     this.focusToDate(newFocus, newProps);
@@ -309,6 +309,7 @@ class Calendar extends PureComponent {
                 }
                 onChange={this.onDragSelectionEnd}
                 onFocus={() => this.handleRangeFocusChange(i, 0)}
+                inputColor={{ color: range.color || defaultColor }}
               />
               <DateInput
                 className={classnames(styles.dateDisplayItem, {
@@ -327,6 +328,7 @@ class Calendar extends PureComponent {
                 }
                 onChange={this.onDragSelectionEnd}
                 onFocus={() => this.handleRangeFocusChange(i, 1)}
+                inputColor={{ color: range.color || defaultColor }}
               />
             </div>
           );
@@ -530,7 +532,7 @@ Calendar.defaultProps = {
   showMonthArrow: true,
   showMonthAndYearPickers: true,
   disabledDates: [],
-  disabledDay: () => { },
+  disabledDay: () => {},
   classNames: {},
   locale: defaultLocale,
   ranges: [],

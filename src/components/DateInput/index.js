@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { format, parse, isValid, isEqual } from 'date-fns';
+import TextField from '@mui/material/TextField';
 
 class DateInput extends PureComponent {
   constructor(props, context) {
@@ -64,24 +65,34 @@ class DateInput extends PureComponent {
   };
 
   render() {
-    const { className, readOnly, placeholder, ariaLabel, disabled, onFocus } = this.props;
+    const {
+      className,
+      inputColor,
+      readOnly,
+      placeholder,
+      ariaLabel,
+      disabled,
+      onFocus,
+    } = this.props;
     const { value, invalid } = this.state;
+    console.log(inputColor.color);
 
     return (
-      <span className={classnames('rdrDateInput', className)}>
-        <input
-          readOnly={readOnly}
-          disabled={disabled}
-          value={value}
-          placeholder={placeholder}
-          aria-label={ariaLabel}
-          onKeyDown={this.onKeyDown}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-          onFocus={onFocus}
-        />
-        {invalid && <span className="rdrWarning">&#9888;</span>}
-      </span>
+      <TextField
+        className={classnames('rdrDateInput', className)}
+        label={ariaLabel}
+        readOnly={readOnly}
+        disabled={disabled}
+        value={value}
+        placeholder={placeholder}
+        aria-label={ariaLabel}
+        onKeyDown={this.onKeyDown}
+        onChange={this.onChange}
+        onBlur={this.onBlur}
+        onFocus={onFocus}
+        error={invalid}
+        style={{ color: inputColor.color, borderColor: inputColor.color }}
+      />
     );
   }
 }
@@ -97,6 +108,7 @@ DateInput.propTypes = {
   className: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  inputColor: PropTypes.object,
 };
 
 DateInput.defaultProps = {
